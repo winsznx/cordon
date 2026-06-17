@@ -6,6 +6,7 @@ Cordon is the **inbound compliance firewall** for autonomous agent wallets. Ever
 
 Built for the **Cleanverse Build: Verified Finance Hackathon** (Track 02 — Trusted AI Agent Transactions), live on **Monad**.
 
+[![Watch the demo](https://img.shields.io/badge/watch-2--min%20demo-8052ff)](https://x.com/winsznx/status/2067385000056549398)
 ![License](https://img.shields.io/badge/license-MIT-white)
 ![Monad](https://img.shields.io/badge/Monad-Testnet%2010143-8052ff)
 ![Contracts](https://img.shields.io/badge/CordonPolicy-100%25%20branch%20coverage-3ddc97)
@@ -21,6 +22,7 @@ Built for the **Cleanverse Build: Verified Finance Hackathon** (Track 02 — Tru
 
 | | |
 |---|---|
+| Demo video | **▶ [2-minute walkthrough on X](https://x.com/winsznx/status/2067385000056549398)** |
 | **CordonPolicy** (Monad Testnet, chain `10143`) | [`0x244198CFA8660BE9B47961E3C061DFA90622d2B0`](https://testnet.monadvision.com/address/0x244198CFA8660BE9B47961E3C061DFA90622d2B0) |
 | Verified source | exact-match on [Sourcify](https://sourcify-api-monad.blockvision.org/v2/contract/10143/0x244198CFA8660BE9B47961E3C061DFA90622d2B0) — solc 0.8.24 · optimizer 200 · shanghai |
 | Initial on-chain policy | `minTier=1` · `freshnessWindow=30d` · `requireCleanBlacklist=true` |
