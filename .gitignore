@@ -1,0 +1,36 @@
+# Cordon — never commit secrets, strategy, or build artifacts
+
+# Strategy / secrets / day-0 findings (moat)
+internal/
+.env
+.env.local
+*.key
+*.pem
+
+# Node
+node_modules/
+dist/
+*.log
+.pnpm-store/
+
+# Next.js
+.next/
+out/
+
+# Foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+cache/
+out/
+broadcast/
+
+# Coverage
+coverage/
+lcov.info
+
+# Harness / local
+.claude/
+
+# OS
+.DS_Store

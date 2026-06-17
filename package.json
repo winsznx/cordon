@@ -1,0 +1,20 @@
+{
+  "name": "cordon",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A firewall for the money your AI agent receives — inbound compliance firewall for autonomous agent wallets (Cleanverse · Monad).",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "day0": "pnpm --filter @cordon/cleanverse day0",
+    "build:contracts": "forge build --root contracts",
+    "test:contracts": "forge test --root contracts",
+    "coverage:contracts": "forge coverage --root contracts"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "sharp", "unrs-resolver"]
+  }
+}

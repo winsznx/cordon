@@ -1,0 +1,24 @@
+{
+  "network": "monad-testnet",
+  "chainId": 10143,
+  "explorer": "https://testnet.monadvision.com/",
+  "note": "RPC, ausdc/access_core/apass addresses resolve live via query_chain_config — never hardcoded.",
+  "contracts": {
+    "CordonPolicy": {
+      "address": "0x244198CFA8660BE9B47961E3C061DFA90622d2B0",
+      "deploymentTx": "0x1ffa64b7903b6c95643fe2f9a9f629401fe6f97ca3e788c5dae45fac75bc47ac",
+      "setPolicyTx": "0x154534477df1b00f06fc46cfe2537ad48c2547037cf3b68da6cdf8ff5adc6a38",
+      "owner": "0x83C130ed9fb92830F09ea2b30E49009EF03065Bb",
+      "explorerUrl": "https://testnet.monadvision.com/address/0x244198CFA8660BE9B47961E3C061DFA90622d2B0"
+    }
+  },
+  "policy": {
+    "minTier": 1,
+    "freshnessWindow": 2592000,
+    "requireCleanBlacklist": true,
+    "keeper": "0x83C130ed9fb92830F09ea2b30E49009EF03065Bb",
+    "operating": "0x1Fb1A5bf49b3d460830dd5ddC527eD7608B1770B",
+    "quarantine": "0xa2b9E21F85E84Bb05B98BeE510D53864356D9754"
+  },
+  "deployedAt": "2026-06-14"
+}

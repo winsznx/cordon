@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #000000;
+  --color-bone: #ffffff;
+  --color-ash: #bdbdbd;
+  --color-smoke: #9a9a9a;
+  --color-plum: #8052ff;
+  --color-amber: #ffb829;
+  --color-lichen: #15846e;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+
+  --radius-pill: 24px;
+}
+
+:root {
+  color-scheme: dark;
+  --hairline: color-mix(in srgb, #ffffff 10%, transparent);
+  --hairline-strong: color-mix(in srgb, #ffffff 16%, transparent);
+}
+
+html {
+  background: var(--color-void);
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-plum);
+  color: var(--color-bone);
+}
+
+*:focus-visible {
+  outline: 1.5px solid var(--color-plum);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  /* Type scale — DESIGN.md. Weight 200 + negative tracking is the signature. */
+  .eyebrow {
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .t-hero {
+    font-weight: 200;
+    font-size: clamp(33px, 8vw, 113px);
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+    overflow-wrap: break-word;
+  }
+  .t-display {
+    font-weight: 200;
+    font-size: clamp(29px, 5.6vw, 78px);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    overflow-wrap: break-word;
+  }
+  .t-heading-lg {
+    font-weight: 200;
+    font-size: clamp(30px, 4.5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  .t-heading {
+    font-weight: 300;
+    font-size: clamp(24px, 3vw, 36px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .t-heading-sm {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .t-subheading {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  .t-body {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+  .t-body-sm {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+  }
+  .t-caption {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+  }
+
+  .hairline {
+    border: 1px solid var(--hairline);
+  }
+  .card {
+    border: 1px solid var(--hairline);
+    border-radius: 24px;
+  }
+  .measure {
+    max-width: 56ch;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.pulse-dot {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .pulse-dot {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
