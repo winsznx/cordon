@@ -10,6 +10,7 @@ Built for the **Cleanverse Build: Verified Finance Hackathon** (Track 02 — Tru
 ![Monad](https://img.shields.io/badge/Monad-Testnet%2010143-8052ff)
 ![Contracts](https://img.shields.io/badge/CordonPolicy-100%25%20branch%20coverage-3ddc97)
 ![Solidity](https://img.shields.io/badge/Solidity-0.8.24-black)
+![Verified](https://img.shields.io/badge/source-verified%20on%20Sourcify-8052ff)
 ![Next.js](https://img.shields.io/badge/Next.js-16.2-black)
 [![npm: @usecordon/screening](https://img.shields.io/npm/v/@usecordon/screening?label=%40usecordon%2Fscreening&color=8052ff)](https://www.npmjs.com/package/@usecordon/screening)
 [![npm: @usecordon/cleanverse](https://img.shields.io/npm/v/@usecordon/cleanverse?label=%40usecordon%2Fcleanverse&color=8052ff)](https://www.npmjs.com/package/@usecordon/cleanverse)
@@ -21,6 +22,7 @@ Built for the **Cleanverse Build: Verified Finance Hackathon** (Track 02 — Tru
 | | |
 |---|---|
 | **CordonPolicy** (Monad Testnet, chain `10143`) | [`0x244198CFA8660BE9B47961E3C061DFA90622d2B0`](https://testnet.monadvision.com/address/0x244198CFA8660BE9B47961E3C061DFA90622d2B0) |
+| Verified source | exact-match on [Sourcify](https://sourcify-api-monad.blockvision.org/v2/contract/10143/0x244198CFA8660BE9B47961E3C061DFA90622d2B0) — solc 0.8.24 · optimizer 200 · shanghai |
 | Initial on-chain policy | `minTier=1` · `freshnessWindow=30d` · `requireCleanBlacklist=true` |
 | Example verdicts | `DepositCleared` `0x4680a71e…` · `DepositQuarantined(TierTooLow)` `0x895bf983…` |
 | Live app | **https://cordon-web-production.up.railway.app** |
