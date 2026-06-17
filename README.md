@@ -21,7 +21,7 @@ Built for the **Cleanverse Build: Verified Finance Hackathon** (Track 02 — Tru
 | **CordonPolicy** (Monad Testnet, chain `10143`) | [`0x244198CFA8660BE9B47961E3C061DFA90622d2B0`](https://testnet.monadvision.com/address/0x244198CFA8660BE9B47961E3C061DFA90622d2B0) |
 | Initial on-chain policy | `minTier=1` · `freshnessWindow=30d` · `requireCleanBlacklist=true` |
 | Example verdicts | `DepositCleared` `0x4680a71e…` · `DepositQuarantined(TierTooLow)` `0x895bf983…` |
-| Live app | _deploying to Railway_ |
+| Live app | **https://cordon-web-production.up.railway.app** |
 
 ---
 
