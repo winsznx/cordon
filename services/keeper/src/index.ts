@@ -1,9 +1,9 @@
-// Cordon keeper — deterministic inbound screening daemon (PRD §6).
+// Cordon keeper — rule-based inbound screening daemon (PRD §6).
 //
 //   pnpm --filter @cordon/keeper start                      # watch + screen + record (default)
 //   pnpm --filter @cordon/keeper exec tsx src/index.ts record <sender> [amount] [minTierOverride]
 //
-// No LLM in the money path.
+// No AI in the money path — fixed rules only.
 
 import { Reason } from "@cordon/screening";
 import type { Address } from "viem";

@@ -39,7 +39,7 @@ Agent-payment safety has two sides — controlling what an agent **spends** (out
 - **On-chain verdict log.** Every screen emits a structured `DepositCleared` / `DepositQuarantined` event — the immutable audit anchor. Duplicate `depositId`s revert.
 - **Selective disclosure.** An `attestationHash = keccak(cvRecordId · KYC hash · tier · status · screenedAt)` proves the sender's verified status without putting PII on-chain.
 
-## How it works — the keeper (deterministic, no LLM in the money path)
+## How it works — the keeper (rule-based, no AI in the money path)
 
 ```
 WATCH    inbound A-Token Transfer to the holding wallet
@@ -56,7 +56,7 @@ RECORD   CordonPolicy.recordVerdict → DepositCleared | DepositQuarantined(reas
 ```mermaid
 flowchart TD
     SRC[Inbound payer<br/>any wallet] -->|sends A-Token / value| HOLD[Agent holding wallet<br/>A-Pass-verified, unscreened buffer]
-    HOLD -->|watch Transfer| K[Cordon keeper - deterministic]
+    HOLD -->|watch Transfer| K[Cordon keeper - rule-based]
     K -->|screen sender| QA[query_apass<br/>state · tier · group · expiry · KYC hash]
     K -->|screen sender| QU[query_user<br/>blacklist_reason]
     QA --> EVAL{Evaluate vs on-chain Policy}
@@ -101,7 +101,7 @@ contracts/            Foundry — CordonPolicy.sol (policy + immutable verdict l
 packages/cleanverse/  typed REST client for the Cleanverse sandbox + Day-0 script
 packages/screening/   pure policy evaluator + on-chain policy reader + attestation
 packages/audit/       audit-record builder, JSON/PDF export, Supabase repository
-services/keeper/      deterministic screen → record daemon (viem)
+services/keeper/      rule-based screen → record daemon (viem)
 apps/web/             Next.js 16 console — policy, live stream, quarantine, audit export
 docs/                 architecture
 ```
@@ -148,7 +148,7 @@ pnpm --filter @cordon/keeper export       # write internal/exports/audit.{json,p
 
 ## Status
 
-Live: policy contract, deterministic keeper, screening SDK against the real sandbox, on-chain cleared + quarantined verdicts, audit JSON/PDF export, and the web console.
+Live: policy contract, rule-based keeper, screening SDK against the real sandbox, on-chain cleared + quarantined verdicts, audit JSON/PDF export, and the web console.
 Next: real A-Token routing via the Cleanverse/Circle faucet, a vault-contract upgrade, Travel-Rule export, and per-institution policy templates.
 
 ## License

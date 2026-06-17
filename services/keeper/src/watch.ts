@@ -6,7 +6,7 @@ const transferEvent = parseAbiItem("event Transfer(address indexed from, address
 
 /**
  * Watch inbound ausdc Transfers to the holding wallet; screen each sender and
- * anchor the verdict on-chain. The deterministic money path — no LLM here.
+ * anchor the verdict on-chain. The rule-based money path — no AI here.
  */
 export function watchInbound(): Promise<never> {
   console.log(`[keeper] watching ausdc ${config.ausdc} → holding ${config.holding} (chain ${config.chainId})`);

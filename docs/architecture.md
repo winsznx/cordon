@@ -7,7 +7,7 @@ Cordon is the **inbound compliance firewall** for autonomous agent wallets: ever
 ```mermaid
 flowchart TD
     SRC[Inbound payer<br/>any wallet] -->|sends A-Token / value| HOLD[Agent holding wallet<br/>A-Pass-verified, unscreened buffer]
-    HOLD -->|watch Transfer| K[Cordon keeper - deterministic]
+    HOLD -->|watch Transfer| K[Cordon keeper - rule-based]
     K -->|screen sender| QA[query_apass<br/>state · tier · group · expiry · KYC hash]
     K -->|screen sender| QU[query_user<br/>blacklist_reason]
     QA --> EVAL{Evaluate vs on-chain Policy}
@@ -45,7 +45,7 @@ The keeper routes funds between them (all A-Pass↔A-Pass moves, so transfers pa
 
 If Day-0 confirms a contract address can be A-Pass-registered, an upgrade path turns Cordon into a true vault contract where `release()` reverts unless policy passes — noted, not assumed.
 
-## Keeper state machine (deterministic — no LLM in the money path)
+## Keeper state machine (rule-based — no AI in the money path)
 
 ```
 WATCH    inbound Transfer to the holding wallet (viem watchEvent)

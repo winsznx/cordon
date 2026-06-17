@@ -72,7 +72,7 @@ export default async function Home() {
 
       {/* Pipeline */}
       <section className="shell border-t py-[120px]" style={{ borderColor: "var(--hairline)" }}>
-        <Eyebrow>The keeper · deterministic, no LLM in the money path</Eyebrow>
+        <Eyebrow>The keeper · rule-based, no AI guesswork in the money path</Eyebrow>
         <h2 className="t-heading-lg mt-6 max-w-[22ch]">Five steps from inbound transfer to immutable verdict.</h2>
         <ol
           className="mt-14 grid gap-px overflow-hidden rounded-[24px] md:grid-cols-5"
