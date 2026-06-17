@@ -1,4 +1,4 @@
-import { Reason, VERDICT_CLEARED, type ScreenResult } from "@cordon/screening";
+import { Reason, VERDICT_CLEARED, type ScreenResult } from "@usecordon/screening";
 import type { AuditRecord } from "./types";
 
 export interface BuildAuditArgs {

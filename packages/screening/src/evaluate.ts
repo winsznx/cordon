@@ -1,4 +1,4 @@
-import type { ApassData, UserData } from "@cordon/cleanverse";
+import type { ApassData, UserData } from "@usecordon/cleanverse";
 import { Reason, VERDICT_CLEARED, VERDICT_QUARANTINED, type EvalPolicy, type Verdict } from "./types";
 
 export interface EvaluateArgs {

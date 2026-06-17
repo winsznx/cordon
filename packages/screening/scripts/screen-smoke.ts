@@ -1,13 +1,13 @@
 // Real end-to-end Phase 2 smoke: read the live on-chain policy, screen the real
 // verified identity against the real Cleanverse API. No mocks, no on-chain writes.
 //
-//   pnpm --filter @cordon/screening smoke
+//   pnpm --filter @usecordon/screening smoke
 
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Address } from "viem";
-import { CleanverseClient } from "@cordon/cleanverse";
+import { CleanverseClient } from "@usecordon/cleanverse";
 import { monadClient, readPolicy, screenSender, Reason, type EvalPolicy } from "../src/index";
 
 const HERE = dirname(fileURLToPath(import.meta.url));

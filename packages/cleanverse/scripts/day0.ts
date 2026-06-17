@@ -1,7 +1,7 @@
 // Day-0 gate (PRD §14). Hits the REAL Cleanverse sandbox — no mocks.
 //
-//   pnpm --filter @cordon/cleanverse day0           # resolve config, onboard wallets, get magiclink
-//   pnpm --filter @cordon/cleanverse day0:verify    # re-check A-Pass state after browser enrollment
+//   pnpm --filter @usecordon/cleanverse day0           # resolve config, onboard wallets, get magiclink
+//   pnpm --filter @usecordon/cleanverse day0:verify    # re-check A-Pass state after browser enrollment
 //
 // Writes: <root>/.env, internal/day0-findings.md, internal/wallets.json (gitignored).
 
@@ -268,7 +268,7 @@ async function main(): Promise<void> {
     console.log(`Magiclink: ${magiclink}`);
     for (const w of wallets) console.log(`  ${w.role.padEnd(10)} ${w.address}`);
     console.log(`Private keys for wallet import: internal/wallets.json`);
-    console.log(`After enrolling, run: pnpm --filter @cordon/cleanverse day0:verify`);
+    console.log(`After enrolling, run: pnpm --filter @usecordon/cleanverse day0:verify`);
   } else if (active === wallets.length) {
     console.log(`[day0] ✓ all wallets A-Pass active — Day-0 enrollment complete`);
   } else {

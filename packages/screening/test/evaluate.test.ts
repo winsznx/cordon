@@ -1,4 +1,4 @@
-import type { ApassData, UserData } from "@cordon/cleanverse";
+import type { ApassData, UserData } from "@usecordon/cleanverse";
 import { describe, expect, it } from "vitest";
 import { evaluate } from "../src/evaluate";
 import { Reason, VERDICT_CLEARED, VERDICT_QUARANTINED, type EvalPolicy } from "../src/types";

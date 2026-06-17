@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@cordon/cleanverse", "@cordon/screening", "@cordon/audit"],
+  transpilePackages: ["@usecordon/cleanverse", "@usecordon/screening", "@cordon/audit"],
   devIndicators: false,
 };
 

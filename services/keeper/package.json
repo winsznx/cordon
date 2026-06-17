@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@cordon/audit": "workspace:*",
-    "@cordon/cleanverse": "workspace:*",
-    "@cordon/screening": "workspace:*",
+    "@usecordon/cleanverse": "workspace:*",
+    "@usecordon/screening": "workspace:*",
     "viem": "^2.21.0"
   },
   "devDependencies": {

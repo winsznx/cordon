@@ -1,4 +1,4 @@
-import type { ApassData } from "@cordon/cleanverse";
+import type { ApassData } from "@usecordon/cleanverse";
 import { keccak256, stringToHex, type Hex } from "viem";
 
 /// Selective-disclosure attestation: proves the sender's verified status without

@@ -1,6 +1,6 @@
 import { AuditRepository, buildAuditRecord, createAuditClient } from "@cordon/audit";
-import { CleanverseClient } from "@cordon/cleanverse";
-import { readPolicy, screenSender, type EvalPolicy } from "@cordon/screening";
+import { CleanverseClient } from "@usecordon/cleanverse";
+import { readPolicy, screenSender, type EvalPolicy } from "@usecordon/screening";
 import { encodePacked, keccak256, type Address, type Hex } from "viem";
 import { config, publicClient, walletClient } from "./config";
 

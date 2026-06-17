@@ -1,13 +1,36 @@
 {
-  "name": "@cordon/cleanverse",
+  "name": "@usecordon/cleanverse",
   "version": "0.1.0",
-  "private": true,
+  "description": "Typed REST client for the Cleanverse verified-finance sandbox — A-Pass identity, A-Token, query_chain_config / query_apass / query_user — on Monad.",
+  "license": "MIT",
   "type": "module",
   "main": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts"
   },
+  "files": ["dist", "README.md"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/winsznx/cordon.git",
+    "directory": "packages/cleanverse"
+  },
+  "homepage": "https://github.com/winsznx/cordon/tree/main/packages/cleanverse#readme",
+  "bugs": "https://github.com/winsznx/cordon/issues",
+  "keywords": ["cleanverse", "monad", "a-pass", "kyc", "compliance", "verified-finance", "web3", "cordon"],
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      }
+    }
+  },
   "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean --target node18",
     "day0": "tsx scripts/day0.ts",
     "day0:verify": "tsx scripts/day0.ts --verify",
     "typecheck": "tsc --noEmit"
@@ -17,6 +40,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
+    "tsup": "^8.3.5",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3"
   }

@@ -15,6 +15,7 @@ const LINKS = [
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -49,7 +50,7 @@ export function Nav() {
           borderBottomColor: scrolled ? "var(--hairline-strong)" : "var(--hairline)",
         }}
       >
-        <Link href="/" className="flex items-center gap-2.5" aria-label="Cordon home">
+        <Link href="/" className="flex items-center gap-2.5" aria-label="Cordon home" onClick={() => setOpen(false)}>
           <CordonMark />
           <span className="text-[18px] font-semibold tracking-tight">Cordon</span>
         </Link>
@@ -67,16 +68,75 @@ export function Nav() {
           ))}
         </div>
 
-        <a
-          href={contract}
-          target="_blank"
-          rel="noreferrer"
-          className="eyebrow rounded-[24px] bg-plum px-4 py-2.5 text-bone transition-opacity hover:opacity-90"
-          style={{ letterSpacing: "0.12em" }}
-        >
-          On Monad ↗
-        </a>
+        <div className="flex items-center gap-2.5">
+          <a
+            href={contract}
+            target="_blank"
+            rel="noreferrer"
+            className="eyebrow hidden rounded-[24px] bg-plum px-4 py-2.5 text-bone transition-opacity hover:opacity-90 md:inline-flex"
+            style={{ letterSpacing: "0.12em" }}
+          >
+            On Monad ↗
+          </a>
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className="flex h-10 w-10 items-center justify-center rounded-[14px] border text-bone md:hidden"
+            style={{ borderColor: "var(--hairline-strong)" }}
+          >
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+              {open ? (
+                <>
+                  <line x1="4" y1="4" x2="14" y2="14" />
+                  <line x1="14" y1="4" x2="4" y2="14" />
+                </>
+              ) : (
+                <>
+                  <line x1="2.5" y1="5" x2="15.5" y2="5" />
+                  <line x1="2.5" y1="9" x2="15.5" y2="9" />
+                  <line x1="2.5" y1="13" x2="15.5" y2="13" />
+                </>
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
+
+      {open ? (
+        <div
+          className="mx-auto mt-2 flex flex-col overflow-hidden bg-void md:hidden"
+          style={{
+            maxWidth: scrolled ? 860 : 1200,
+            borderRadius: 24,
+            borderWidth: 1,
+            borderStyle: "solid",
+            borderColor: "var(--hairline-strong)",
+          }}
+        >
+          {LINKS.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="border-b px-6 py-4 t-body text-ash transition-colors hover:text-bone"
+              style={{ borderColor: "var(--hairline)" }}
+            >
+              {l.label}
+            </Link>
+          ))}
+          <a
+            href={contract}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => setOpen(false)}
+            className="px-6 py-4 t-body text-plum"
+          >
+            On Monad ↗
+          </a>
+        </div>
+      ) : null}
     </header>
   );
 }

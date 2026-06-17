@@ -1,23 +1,47 @@
 {
-  "name": "@cordon/screening",
+  "name": "@usecordon/screening",
   "version": "0.1.0",
-  "private": true,
+  "description": "Cordon's inbound-payment screening SDK — pure policy evaluator, on-chain policy reader, and selective-disclosure attestation, over the Cleanverse A-Pass on Monad.",
+  "license": "MIT",
   "type": "module",
   "main": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts"
   },
+  "files": ["dist", "README.md"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/winsznx/cordon.git",
+    "directory": "packages/screening"
+  },
+  "homepage": "https://github.com/winsznx/cordon/tree/main/packages/screening#readme",
+  "bugs": "https://github.com/winsznx/cordon/issues",
+  "keywords": ["cordon", "compliance", "screening", "monad", "a-pass", "kyc", "aml", "web3", "agent"],
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      }
+    }
+  },
   "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean --target node18",
     "test": "vitest run",
     "smoke": "tsx scripts/screen-smoke.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@cordon/cleanverse": "workspace:*",
+    "@usecordon/cleanverse": "workspace:*",
     "viem": "^2.21.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
+    "tsup": "^8.3.5",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "vitest": "^2.1.8"

@@ -2,10 +2,10 @@
   "$schema": "https://railway.com/railway.schema.json",
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "pnpm install --no-frozen-lockfile && pnpm --filter web build"
+    "buildCommand": "pnpm install --no-frozen-lockfile && if [ \"$RAILWAY_SERVICE_NAME\" = \"cordon-mcp\" ]; then echo \"cordon-mcp: no build step (runs via tsx)\"; else pnpm --filter web build; fi"
   },
   "deploy": {
-    "startCommand": "pnpm --filter web start",
+    "startCommand": "if [ \"$RAILWAY_SERVICE_NAME\" = \"cordon-mcp\" ]; then pnpm --filter @cordon/mcp start; else pnpm --filter web start; fi",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 3
   }

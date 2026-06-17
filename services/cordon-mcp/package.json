@@ -1,0 +1,28 @@
+{
+  "name": "@cordon/mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cordon MCP server — screen inbound payments to AI-agent wallets as a native agent tool (stdio + remote Streamable HTTP).",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@usecordon/cleanverse": "workspace:*",
+    "@usecordon/screening": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "express": "^4.21.2",
+    "tsx": "^4.19.2",
+    "viem": "^2.21.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.0"
+  }
+}

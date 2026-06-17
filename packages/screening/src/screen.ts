@@ -1,4 +1,4 @@
-import type { CleanverseClient, UserData } from "@cordon/cleanverse";
+import type { CleanverseClient, UserData } from "@usecordon/cleanverse";
 import { zeroHash } from "viem";
 import { attestationHash } from "./attestation";
 import { evaluate, parseTier } from "./evaluate";

@@ -1,5 +1,5 @@
-import type { ApassData } from "@cordon/cleanverse";
-import { Reason, type ScreenResult } from "@cordon/screening";
+import type { ApassData } from "@usecordon/cleanverse";
+import { Reason, type ScreenResult } from "@usecordon/screening";
 import { describe, expect, it } from "vitest";
 import { buildAuditRecord } from "../src/build";
 import { buildAuditExport } from "../src/json";

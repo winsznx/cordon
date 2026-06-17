@@ -1,4 +1,4 @@
-import type { ApassData, UserData } from "@cordon/cleanverse";
+import type { ApassData, UserData } from "@usecordon/cleanverse";
 import type { Hex } from "viem";
 
 /** Mirrors CordonPolicy.Reason (on-chain enum order is load-bearing). */

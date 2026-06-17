@@ -1,6 +1,6 @@
 import "server-only";
 import { cache } from "react";
-import { monadClient, readPolicy } from "@cordon/screening";
+import { monadClient, readPolicy } from "@usecordon/screening";
 import type { Address } from "viem";
 import { ENV } from "./env";
 import type { Policy } from "./types";

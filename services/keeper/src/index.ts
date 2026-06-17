@@ -5,7 +5,7 @@
 //
 // No AI in the money path — fixed rules only.
 
-import { Reason } from "@cordon/screening";
+import { Reason } from "@usecordon/screening";
 import type { Address } from "viem";
 import { screenAndRecord } from "./record";
 import { watchInbound } from "./watch";

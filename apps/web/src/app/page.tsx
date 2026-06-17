@@ -1,4 +1,5 @@
 import { Membrane } from "@/components/membrane";
+import { ScreenChecker } from "@/components/screen-checker";
 import { Eyebrow, Pill, Stat } from "@/components/ui";
 import { ENV } from "@/lib/env";
 import { explorerAddress, freshnessLabel, REASON_LABELS, shortHex } from "@/lib/format";
@@ -56,6 +57,19 @@ export default async function Home() {
           <div aria-hidden="true" className="relative mt-12 h-[280px] w-full md:hidden">
             <Membrane />
           </div>
+        </div>
+      </section>
+
+      {/* Try it live */}
+      <section className="shell border-t py-[120px]" style={{ borderColor: "var(--hairline)" }}>
+        <Eyebrow tone="plum">Try it · live</Eyebrow>
+        <h2 className="t-heading-lg mt-6 max-w-[20ch]">Screen any wallet against the live policy.</h2>
+        <p className="t-subheading measure mt-6 text-ash">
+          Paste any address — Cordon screens it right now against the real on-chain policy and Cleanverse A-Pass, and
+          returns the verdict. No wallet, no signup.
+        </p>
+        <div className="mt-10 max-w-[640px]">
+          <ScreenChecker />
         </div>
       </section>
 

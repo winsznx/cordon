@@ -11,6 +11,8 @@ Built for the **Cleanverse Build: Verified Finance Hackathon** (Track 02 — Tru
 ![Contracts](https://img.shields.io/badge/CordonPolicy-100%25%20branch%20coverage-3ddc97)
 ![Solidity](https://img.shields.io/badge/Solidity-0.8.24-black)
 ![Next.js](https://img.shields.io/badge/Next.js-16.2-black)
+[![npm: @usecordon/screening](https://img.shields.io/npm/v/@usecordon/screening?label=%40usecordon%2Fscreening&color=8052ff)](https://www.npmjs.com/package/@usecordon/screening)
+[![npm: @usecordon/cleanverse](https://img.shields.io/npm/v/@usecordon/cleanverse?label=%40usecordon%2Fcleanverse&color=8052ff)](https://www.npmjs.com/package/@usecordon/cleanverse)
 
 ---
 
@@ -22,6 +24,8 @@ Built for the **Cleanverse Build: Verified Finance Hackathon** (Track 02 — Tru
 | Initial on-chain policy | `minTier=1` · `freshnessWindow=30d` · `requireCleanBlacklist=true` |
 | Example verdicts | `DepositCleared` `0x4680a71e…` · `DepositQuarantined(TierTooLow)` `0x895bf983…` |
 | Live app | **https://cordon-web-production.up.railway.app** |
+| MCP server (remote, Streamable HTTP) | **https://cordon-mcp-production.up.railway.app/mcp** |
+| SDK on npm | [`@usecordon/screening`](https://www.npmjs.com/package/@usecordon/screening) · [`@usecordon/cleanverse`](https://www.npmjs.com/package/@usecordon/cleanverse) |
 
 ---
 
@@ -102,9 +106,84 @@ packages/cleanverse/  typed REST client for the Cleanverse sandbox + Day-0 scrip
 packages/screening/   pure policy evaluator + on-chain policy reader + attestation
 packages/audit/       audit-record builder, JSON/PDF export, Supabase repository
 services/keeper/      rule-based screen → record daemon (viem)
+services/cordon-mcp/  MCP server — screen senders as an agent-native tool (stdio + remote HTTP)
 apps/web/             Next.js 16 console — policy, live stream, quarantine, audit export
 docs/                 architecture
 ```
+
+## Using Cordon today
+
+Right now Cordon is **self-hosted on Monad testnet** — you run your own policy contract + keeper. (A hosted, per-institution service is on the roadmap.)
+
+- **Just want to see it?** Open the live console, no setup: **https://cordon-web-production.up.railway.app**
+- **Run it for your own agent:**
+  1. Clone + install (below). Fund a deployer wallet with testnet MON, then `pnpm day0` to resolve the live Monad config and create the agent's `holding` / `operating` / `quarantine` wallets. Enroll one A-Pass identity (via the magiclink the script prints) so you have a real verified sender to screen.
+  2. **Deploy your own policy contract** — `forge script contracts/script/Deploy.s.sol --rpc-url "$MONAD_RPC_URL" --broadcast` — which makes you its owner + keeper and sets a starting policy (tune any time with `setPolicy`).
+  3. **Point your agent's public receiving address at the `holding` wallet** and run the keeper (`pnpm --filter @cordon/keeper start`). It watches inbound A-Token transfers, screens each sender against your on-chain policy, and records a `DepositCleared` / `DepositQuarantined` verdict on-chain. _(Physically sweeping the A-Token between wallets is the in-progress step — see [Status](#status).)_
+  4. **Watch + export** in the console — `/stream`, `/quarantine`, `/audit` (JSON/PDF).
+
+The operator's whole loop is **set policy → run the keeper → watch the console**: routine screening is automatic, and quarantined funds get a separate human review. Payers don't change anything — they pay the address as normal and Cordon screens on credit.
+
+## Integrate — "use this in your flow, get this output"
+
+A firm plugs Cordon in at one moment: **the instant it credits an inbound payment.** Four surfaces, one verdict contract.
+
+**1. MCP server (agent-native).** Cordon ships as a [Model Context Protocol](https://modelcontextprotocol.io) server, so an AI agent screens a payer as a **native tool — before it accepts the money.** Live remote endpoint, nothing to install:
+
+```bash
+# https://cordon-mcp-production.up.railway.app/mcp
+npx @modelcontextprotocol/inspector --cli https://cordon-mcp-production.up.railway.app/mcp \
+  --transport http --method tools/call --tool-name screen_sender --tool-arg address=0xSENDER
+```
+
+Wire it into Claude Code (or any MCP client) in one line:
+
+```bash
+claude mcp add --transport http cordon https://cordon-mcp-production.up.railway.app/mcp
+```
+
+Tools: `screen_sender` (one address → verdict + attestation), `screen_batch` (up to 25), `get_policy`. Resources: `cordon://policy`, `cordon://reasons`. It also runs locally over **stdio** for Claude Desktop — see [services/cordon-mcp](services/cordon-mcp). The agent now refuses dirty money on its own.
+
+**2. Screening API (drop-in HTTP).** Before crediting a payment, ask Cordon about the sender. One call, no SDK:
+
+```bash
+curl "https://cordon-web-production.up.railway.app/api/screen?address=0xSENDER"
+```
+
+```jsonc
+// verified sender → clears the policy
+{ "verdict": "cleared",     "reason": 28, "tier": 28, "group": "...",
+  "attestationHash": "0x6f1c…", "screenedAt": 1750118400,
+  "policy": { "minTier": 1 } }
+
+// no A-Pass / frozen / blacklisted / tier-too-low / wrong group → hold it
+{ "verdict": "quarantined", "reason": 0, "reasonLabel": "NoAPass", "tier": null,
+  "hasApass": false, "attestationHash": "0x0000…", "policy": { "minTier": 1 } }
+```
+
+Your system reads one field: `verdict === "cleared"` → credit to spendable; `"quarantined"` → hold or return, with `reasonLabel` for the operator and `attestationHash` for the audit trail. That's the whole contract — **feed an address, get a verdict + a regulator-anchorable attestation.** (The hosted endpoint screens against *our* demo policy; a firm runs its own instance bound to its own policy contract.)
+
+**3. Keeper (autonomous, on-chain).** Don't want to call anything? Point your agent's receiving address at the `holding` buffer and run the keeper. It watches every inbound transfer, screens the sender, routes clean→`operating` / risky→`quarantine`, and anchors each verdict on-chain as `DepositCleared` / `DepositQuarantined`. Your agent code doesn't change.
+
+**4. SDK (in-process, on npm).** Enforce inside your own backend — published as [`@usecordon/screening`](https://www.npmjs.com/package/@usecordon/screening) + [`@usecordon/cleanverse`](https://www.npmjs.com/package/@usecordon/cleanverse):
+
+```bash
+npm i @usecordon/screening @usecordon/cleanverse viem
+```
+
+```ts
+import { screenSender, readPolicy, monadClient } from "@usecordon/screening";
+import { CleanverseClient } from "@usecordon/cleanverse";
+
+const { policy } = await readPolicy(monadClient(RPC), CORDON_ADDRESS);
+const r = await screenSender({
+  client: new CleanverseClient(), chain: "monad", symbol: "usdc",
+  sender, policy, nowSec: Math.floor(Date.now() / 1000),
+});
+if (r.verdict !== 0) holdForReview(sender, r); // 0 = cleared; else r.reason tells you why
+```
+
+Same verdict object the keeper writes on-chain and the API returns over HTTP — pick the surface that fits your stack.
 
 ## Quickstart
 
@@ -148,7 +227,7 @@ pnpm --filter @cordon/keeper export       # write internal/exports/audit.{json,p
 
 ## Status
 
-Live: policy contract, rule-based keeper, screening SDK against the real sandbox, on-chain cleared + quarantined verdicts, audit JSON/PDF export, and the web console.
+Live: policy contract, rule-based keeper, screening SDK ([on npm](https://www.npmjs.com/package/@usecordon/screening)) against the real sandbox, the MCP server (remote + stdio), on-chain cleared + quarantined verdicts, audit JSON/PDF export, and the web console.
 Next: real A-Token routing via the Cleanverse/Circle faucet, a vault-contract upgrade, Travel-Rule export, and per-institution policy templates.
 
 ## License

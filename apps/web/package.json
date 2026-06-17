@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@cordon/audit": "workspace:*",
-    "@cordon/cleanverse": "workspace:*",
-    "@cordon/screening": "workspace:*",
+    "@usecordon/cleanverse": "workspace:*",
+    "@usecordon/screening": "workspace:*",
     "@supabase/supabase-js": "^2.47.10",
     "next": "16.2.9",
     "react": "19.2.4",

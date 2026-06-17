@@ -12,8 +12,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@cordon/cleanverse": "workspace:*",
-    "@cordon/screening": "workspace:*",
+    "@usecordon/cleanverse": "workspace:*",
+    "@usecordon/screening": "workspace:*",
     "@supabase/supabase-js": "^2.47.10",
     "pdf-lib": "^1.17.1"
   },
